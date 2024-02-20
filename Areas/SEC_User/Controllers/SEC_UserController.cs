@@ -26,7 +26,7 @@ namespace E_Commerce_Website.Areas.SEC_User.Controllers
         #endregion
 
         #region User List (Select All)
-        public IActionResult SEC_UserList()
+        public IActionResult SEC_User_List()
         {
             DataTable dataTable = dalSEC_User.SEC_UserSelectALL();
             return View("SEC_User_List", dataTable);

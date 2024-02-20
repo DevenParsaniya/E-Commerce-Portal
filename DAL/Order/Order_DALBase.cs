@@ -88,5 +88,40 @@ namespace E_Commerce_Website.DAL.Order
             }
         }
         #endregion
+
+        #region Method : Order Insert
+        public bool OrderInsert(int UserID, int[] ProductIDs, int AddressID)
+        {
+            SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
+            try
+            {
+                DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Order_Insert");
+                sqlDatabase.AddInParameter(dbCommand, "@AddressID", DbType.Int32, AddressID);
+                sqlDatabase.AddInParameter(dbCommand, "@UserID", DbType.Int32, UserID);
+                DataTable ProductIDsTable = new DataTable();
+                ProductIDsTable.Columns.Add("ProductID", typeof(int));
+                foreach (var productId in ProductIDs)
+                {
+                    ProductIDsTable.Rows.Add(productId);
+                }
+                // Convert DataTable to a comma-separated string of ProductIDs
+                string ProductIDsString = string.Join(",", ProductIDsTable.AsEnumerable().Select(row => row.Field<int>("ProductID")));
+
+                // Pass the string as a parameter
+                sqlDatabase.AddInParameter(dbCommand, "@ProductIDs", DbType.String, ProductIDsString);
+                sqlDatabase.AddInParameter(dbCommand, "@isCompleted", DbType.Boolean, DBNull.Value);
+                sqlDatabase.AddInParameter(dbCommand, "@OrderStatus", DbType.String, DBNull.Value);
+                sqlDatabase.AddInParameter(dbCommand, "@Created", DbType.DateTime, DBNull.Value);
+                sqlDatabase.AddInParameter(dbCommand, "@Modified", DbType.DateTime, DBNull.Value);
+                sqlDatabase.AddInParameter(dbCommand, "@Completed", DbType.DateTime, DBNull.Value);
+                bool isSuccess = Convert.ToBoolean(sqlDatabase.ExecuteNonQuery(dbCommand));
+                return isSuccess;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

@@ -12,7 +12,7 @@ namespace E_Commerce_Website.Areas.Product.Controllers
         Product_DAL dalProduct = new Product_DAL();
 
         #region Product List (Active Select All)
-        public IActionResult ProductList()
+        public IActionResult Product_List()
         {
             DataTable dataTable = dalProduct.ProductSelectAll();
             ViewBag.Save = TempData["Save"];

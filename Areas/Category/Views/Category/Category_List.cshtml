@@ -17,21 +17,11 @@
                 <table class="table table-striped">
                     <thead>
                         <tr class="text-center">
-                            <th>
-                                Category
-                            </th>
-                            <th>
-                                Category Description
-                            </th>
-                            <th>
-                                Creation Date
-                            </th>
-                            <th>
-                                Modification Date
-                            </th>
-                            <th>
-                                Actions
-                            </th>
+                            <th>Category</th>
+                            <th>Category Description</th>
+                            <th>Creation Date</th>
+                            <th>Modification Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,34 +31,34 @@
                                 foreach (DataRow dr in Model.Rows)
                                 {
 
-                                        <tr class="text-center">
-                                            <td>@dr["CategoryName"]</td>
-                                            <td>@dr["CategoryDescription"]</td>
-                                            <td>@dr["CreatedAt"]</td>
-                                            <td>@dr["ModifiedAt"]</td>
-                                            <td>
-                                                <form method="post" asp-area="Category" asp-controller="Category" asp-action="CategoryDelete">
-                                                    <input type="hidden" name="CategoryID" value="@dr["CategoryID"]">
-                                                    <button type="submit" class="btn btn-danger btn-xs"
-                                                            onclick="return AlertForDelete();">
-                                                        Delete
-                                                    </button>
-                                                    <a class="btn btn-warning btn-xs" asp-area="Category" asp-controller="Category"
+                                    <tr class="text-center">
+                                        <td>@dr["CategoryName"]</td>
+                                        <td>@dr["CategoryDescription"]</td>
+                                        <td>@dr["CreatedAt"]</td>
+                                        <td>@dr["ModifiedAt"]</td>
+                                        <td>
+                                            <form method="post" asp-area="Category" asp-controller="Category" asp-action="CategoryDelete">
+                                                <input type="hidden" name="CategoryID" value="@dr["CategoryID"]">
+                                                <button type="submit" class="btn btn-danger btn-xs"
+                                                        onclick="return AlertForDelete();">
+                                                    Delete
+                                                </button>
+                                                <a class="btn btn-warning btn-xs" asp-area="Category" asp-controller="Category"
                                                    asp-action="CategoryAdd" asp-route-CategoryID="@dr["CategoryID"]">
-                                                        Edit
-                                                    </a>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                                    Update
+                                                </a>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 }
                             }
                             else
                             {
-                                    <tr>
-                                        <td colspan="5" class="text-center">
-                                            <p class="col-form-label">No Record Found </p>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <p class="col-form-label">No Record Found </p>
+                                    </td>
+                                </tr>
                             }
                         }
                     </tbody>
@@ -81,14 +71,6 @@
 @section Scripts
 {
     <script>
-        $(document).ready(function () {
-            $("#sample_1").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#sample_2 tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
         function AlertForDelete() {
             if (Confirm("Are you sure want to Delete record ?")) {
                 return true;
@@ -97,5 +79,13 @@
                 return false;
             }
         }
+        $(document).ready(function () {
+            $("#sample_1").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#sample_2 tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
     </script>
 }
