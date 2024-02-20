@@ -10,7 +10,7 @@ namespace E_Commerce_Website.Areas.Category.Models
         [Required]
         public string CategoryDescription { get; set; }
         public DateTime? CreatedAt { get; set; }
-        public DateTime? ModifiedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; } = DateTime.Now;
     }
     public class CategoryDropDownModel
     {

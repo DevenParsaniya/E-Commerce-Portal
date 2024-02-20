@@ -24,8 +24,8 @@ namespace E_Commerce_Website.Areas.Category.Controllers
         #region Category Save (Insert & Update)
         public IActionResult CategorySave(CategoryModel categoryModel)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 if (dalCategory.CategorySave(categoryModel))
                 {
                     TempData["Save"] = "Category Saved Successfully";
@@ -35,7 +35,7 @@ namespace E_Commerce_Website.Areas.Category.Controllers
                 {
                     return RedirectToAction("Category_List");
                 }
-            }
+            //}
             return View("Category_AddEdit");
         }
         #endregion
