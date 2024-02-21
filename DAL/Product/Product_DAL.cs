@@ -3,6 +3,7 @@ using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.Common;
 using System.Data;
+using E_Commerce_Website.Areas.Product.Models;
 
 namespace E_Commerce_Website.DAL.Product
 {
@@ -29,6 +30,29 @@ namespace E_Commerce_Website.DAL.Product
                     listOfCategories.Add(categoryDropDownModel);
                 }
                 return listOfCategories;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Method : ProductFilter
+        public DataTable ProductFilter(ProductFilterModel productFilterModel)
+        {
+            try
+            {
+                DataTable dataTable = new DataTable();
+                SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
+                DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Product_Filter");
+                sqlDatabase.AddInParameter(dbCommand, "@CategoryID", DbType.Int32, productFilterModel.CategoryID);
+                sqlDatabase.AddInParameter(dbCommand, "@ProductName", DbType.String, productFilterModel.ProductName);
+                using (IDataReader dataReader = sqlDatabase.ExecuteReader(dbCommand))
+                {
+                    dataTable.Load(dataReader);
+                }
+                return dataTable;
             }
             catch (Exception ex)
             {

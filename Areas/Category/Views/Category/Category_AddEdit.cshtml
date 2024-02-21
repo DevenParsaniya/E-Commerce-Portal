@@ -5,7 +5,7 @@
 
 @model E_Commerce_Website.Areas.Category.Models.CategoryModel
 
-<h3>Category Add/Edit</h3>
+<h1>Category Add/Edit</h1>
 
 <div class="col-md-6 grid-margin stretch-card">
     <div class="card">
@@ -22,8 +22,8 @@
                     <input type="text" class="form-control" placeholder="Enter Category Description" asp-for="CategoryDescription">
                     <span asp-validation-for="CategoryDescription" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-primary me-2">Submit</button>
-                <button asp-area="Category" asp-controller="Category" asp-action="Category_List" class="btn btn-light">Cancel</button>
+                <button type="submit" class="btn btn-primary me-2">Save</button>
+                <button asp-area="Category" asp-controller="Category" asp-action="Category_List" class="btn btn-danger">Cancel</button>
             </form>
         </div>
     </div>

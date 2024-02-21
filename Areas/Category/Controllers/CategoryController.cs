@@ -1,5 +1,7 @@
 ﻿using E_Commerce_Website.Areas.Category.Models;
+using E_Commerce_Website.Areas.Product.Models;
 using E_Commerce_Website.DAL.Category;
+using E_Commerce_Website.DAL.Product;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -10,6 +12,7 @@ namespace E_Commerce_Website.Areas.Category.Controllers
     public class CategoryController : Controller
     {
         Category_DAL dalCategory = new Category_DAL();
+        Product_DAL dalProduct = new Product_DAL();
 
         #region Category List (Select All)
         public IActionResult Category_List()
@@ -24,8 +27,8 @@ namespace E_Commerce_Website.Areas.Category.Controllers
         #region Category Save (Insert & Update)
         public IActionResult CategorySave(CategoryModel categoryModel)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
                 if (dalCategory.CategorySave(categoryModel))
                 {
                     TempData["Save"] = "Category Saved Successfully";
@@ -35,7 +38,7 @@ namespace E_Commerce_Website.Areas.Category.Controllers
                 {
                     return RedirectToAction("Category_List");
                 }
-            //}
+            }
             return View("Category_AddEdit");
         }
         #endregion
@@ -65,6 +68,23 @@ namespace E_Commerce_Website.Areas.Category.Controllers
                 return RedirectToAction("Category_List");
             }
             return RedirectToAction("Category_List");
+        }
+        #endregion
+
+        #region Category Filter
+        public IActionResult CategoryFilter(CategoryFilterModel categoryFilterModel)
+        {
+            if (ModelState.IsValid)
+            {
+                DataTable dataTable = dalCategory.CategoryFilter(categoryFilterModel);
+                ModelState.Clear();
+                return View("Category_List", dataTable);
+            }
+            else
+            {
+                // Handle invalid model state if needed
+                return View("Category_List");
+            }
         }
         #endregion
     }

@@ -231,32 +231,28 @@
 {
     <script>
         $(document).ready(function () {
-            var selectedProductIds = [];
-
+            var selectedProductIDs = [];
             // "Select All" checkbox change event
             $("#selectAll").on("change", function () {
                 var isChecked = $(this).prop("checked");
                 $(".form-check-input").prop("checked", isChecked);
-                updateSelectedProductIds(); // Update the selected product IDs
+                updateSelectedProductIDs(); // Update the selected product IDs
             });
-
             // Individual checkbox change event
             $(".form-check-input").on("change", function () {
-                updateSelectedProductIds(); // Update the selected product IDs
+                updateSelectedProductIDs(); // Update the selected product IDs
             });
-
             // Update the array of selected product IDs
-            function updateSelectedProductIds() {
-                selectedProductIds = [];
+            function updateSelectedProductIDs() {
+                selectedProductIDs = [];
                 $(".form-check-input:checked").each(function () {
-                    var productId = $(this).data("product-id");
-                    if (productId !== undefined) {
-                        selectedProductIds.push(productId);
+                    var productID = $(this).data("product-id");
+                    if (productID !== undefined) {
+                        selectedProductIDs.push(productID);
                     }
                 });
-                console.log("Selected Product IDs: ", selectedProductIds);
+                console.log("Selected Product IDs: ", selectedProductIDs);
             }
-
             // Search functionality
             $("#sample_1").on("keyup", function () {
                 var value = $(this).val().toLowerCase();
@@ -264,7 +260,7 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
-            $("#selectedProductIds").val(selectedProductIds.join(","));
+            $("#selectedProductIDs").val(selectedProductIDs.join(","));
         });
     </script>
 }

@@ -70,19 +70,19 @@ namespace E_Commerce_Website.Areas.Order.Controllers
                                 break;
                             }
                         }
-                        return RedirectToAction("ThankYou", "Home");
+                        return RedirectToAction("Thank You", "Home");
                     }
                     else
                     {
-                        return RedirectToAction("ThankYou", "Home");
+                        return RedirectToAction("Thank You", "Home");
                     }
                 }
                 else
                 {
-                    return RedirectToAction("ThankYou", "Home");
+                    return RedirectToAction("Thank You", "Home");
                 }
             }
-            return RedirectToAction("ThankYou", "Home");
+            return RedirectToAction("Thank You", "Home");
         }
         #endregion
     }

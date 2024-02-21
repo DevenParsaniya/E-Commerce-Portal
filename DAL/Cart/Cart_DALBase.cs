@@ -31,20 +31,37 @@ namespace E_Commerce_Website.DAL.Cart
 
         #region Method : Cart Insert
 
-        public bool CartInsert(CartModel cartModel, int ProductID, int UserID)
+        public bool CartInsert(int ProductID, int UserID)
         {
             SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
             try
             {
-                DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Cart_Insert");
-                sqlDatabase.AddInParameter(dbCommand, "@ProductID", DbType.Int32, ProductID);
-                sqlDatabase.AddInParameter(dbCommand, "@UserID", DbType.Int32, UserID);
-                sqlDatabase.AddInParameter(dbCommand, "@ProductQuantity", DbType.Int32, DBNull.Value);
-                sqlDatabase.AddInParameter(dbCommand, "@IsPurchased", DbType.Boolean, DBNull.Value);
-                sqlDatabase.AddInParameter(dbCommand, "@CreatedAt", DbType.DateTime, DBNull.Value);
-                sqlDatabase.AddInParameter(dbCommand, "@ModifiedAt", DbType.DateTime, DBNull.Value);
-                bool isSuccess = Convert.ToBoolean(sqlDatabase.ExecuteNonQuery(dbCommand));
-                return isSuccess;
+                DbCommand dbCommand1 = sqlDatabase.GetStoredProcCommand("PR_Cart_SelectByPK");
+                sqlDatabase.AddInParameter(dbCommand1, "@ProductID", DbType.Int32, ProductID);
+                DataTable dataTable = new DataTable();
+                using (IDataReader dataReader = sqlDatabase.ExecuteReader(dbCommand1))
+                {
+                    dataTable.Load(dataReader);
+                }
+                if (dataTable.Rows.Count > 0)
+                {
+                    DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Cart_Increment_Quantity");
+                    sqlDatabase.AddInParameter(dbCommand, "@ProductID", DbType.Int32, ProductID);
+                    bool isSuccess = Convert.ToBoolean(sqlDatabase.ExecuteNonQuery(dbCommand));
+                    return isSuccess;
+                }
+                else
+                {
+                    DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Cart_Insert");
+                    sqlDatabase.AddInParameter(dbCommand, "@ProductID", DbType.Int32, ProductID);
+                    sqlDatabase.AddInParameter(dbCommand, "@UserID", DbType.Int32, UserID);
+                    sqlDatabase.AddInParameter(dbCommand, "@ProductQuantity", DbType.Int32, DBNull.Value);
+                    sqlDatabase.AddInParameter(dbCommand, "@IsPurchased", DbType.Boolean, DBNull.Value);
+                    sqlDatabase.AddInParameter(dbCommand, "@CreatedAt", DbType.DateTime, DBNull.Value);
+                    sqlDatabase.AddInParameter(dbCommand, "@ModifiedAt", DbType.DateTime, DBNull.Value);
+                    bool isSuccess = Convert.ToBoolean(sqlDatabase.ExecuteNonQuery(dbCommand));
+                    return isSuccess;
+                }  
             }
             catch (Exception ex)
             {

@@ -58,8 +58,8 @@ namespace E_Commerce_Website.DAL.SEC_User
                     sqlDatabase.AddInParameter(dbCommand1, "MobileNumber", DbType.String, MobileNumber);
                     sqlDatabase.AddInParameter(dbCommand1, "UserEmail", DbType.String, UserEmail);
                     sqlDatabase.AddInParameter(dbCommand1, "IsAdmin", DbType.Boolean, DBNull.Value);
-                    sqlDatabase.AddInParameter(dbCommand1, "Created", SqlDbType.DateTime, DBNull.Value);
-                    sqlDatabase.AddInParameter(dbCommand1, "Modified", SqlDbType.DateTime, DBNull.Value);
+                    sqlDatabase.AddInParameter(dbCommand1, "CreatedAt", SqlDbType.DateTime, DBNull.Value);
+                    sqlDatabase.AddInParameter(dbCommand1, "ModifiedAt", SqlDbType.DateTime, DBNull.Value);
                     if (Convert.ToBoolean(sqlDatabase.ExecuteNonQuery(dbCommand1)))
                     {
                         return true;

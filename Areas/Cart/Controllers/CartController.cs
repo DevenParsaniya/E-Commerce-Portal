@@ -22,12 +22,11 @@ namespace E_Commerce_Website.Areas.Cart.Controllers
         #endregion
 
         #region Cart Insert
-        public IActionResult CartInsert(CartModel cartModel, int ProductID, int UserID)
+        public IActionResult CartInsert(int ProductID, int UserID)
         {
-
             if (ModelState.IsValid)
             {
-                if (dalCart.CartInsert(cartModel, ProductID, UserID))
+                if (dalCart.CartInsert(ProductID, UserID))
                 {
                     Cart_DAL dalCart = new Cart_DAL();
                     DataTable dataTable = dalCart.CartCount(Convert.ToInt32(CommonVariable.UserID()));
@@ -56,7 +55,7 @@ namespace E_Commerce_Website.Areas.Cart.Controllers
             bool isSuccess = dalCart.Increment_Quantity(ProductID);
             if (isSuccess)
             {
-                return RedirectToAction("CartList");
+                return RedirectToAction("Cart_List");
             }
             return RedirectToAction("Cart_List");
         }
@@ -80,8 +79,8 @@ namespace E_Commerce_Website.Areas.Cart.Controllers
             bool isSuccess = dalCart.Remove_Cart_Product(ProductID);
             if (isSuccess)
             {
-                Cart_DAL cartDAL = new Cart_DAL();
-                DataTable dataTable = cartDAL.CartCount(Convert.ToInt32(CommonVariable.UserID()));
+                Cart_DAL dalCart = new Cart_DAL();
+                DataTable dataTable = dalCart.CartCount(Convert.ToInt32(CommonVariable.UserID()));
                 if (dataTable.Rows.Count > 0)
                 {
                     foreach (DataRow dataRow in dataTable.Rows)

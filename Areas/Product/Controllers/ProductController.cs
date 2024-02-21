@@ -1,4 +1,5 @@
 ﻿using E_Commerce_Website.Areas.Product.Models;
+using E_Commerce_Website.DAL.Category;
 using E_Commerce_Website.DAL.Product;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -10,6 +11,7 @@ namespace E_Commerce_Website.Areas.Product.Controllers
     public class ProductController : Controller
     {
         Product_DAL dalProduct = new Product_DAL();
+        Category_DAL dalCategory = new Category_DAL();
 
         #region Product List (Active Select All)
         public IActionResult Product_List()
@@ -35,6 +37,7 @@ namespace E_Commerce_Website.Areas.Product.Controllers
         public IActionResult ShoppingProductList()
         {
             DataTable dataTable = dalProduct.ProductSelectAll();
+            ViewBag.Category_List = dalProduct.CategoryDropDown();
             return View(dataTable);
         }
         #endregion
@@ -67,7 +70,7 @@ namespace E_Commerce_Website.Areas.Product.Controllers
         #endregion
 
         #region Product Select By ID
-        public IActionResult ProductById(int ProductID)
+        public IActionResult ProductAdd(int ProductID)
         {
             ProductModel productModel = dalProduct.ProductSelectByID(ProductID);
             if (productModel != null)
@@ -116,12 +119,30 @@ namespace E_Commerce_Website.Areas.Product.Controllers
             bool isSuccess = dalProduct.DeleteMultipleProducts(ProductIDs);
             if (isSuccess)
             {
-                TempData["Delete"] = "Selected Product Deleted Successfully";
+                TempData["Delete"] = "Selected Products Deleted Successfully";
                 return RedirectToAction("Product_List");
             }
             else
             {
                 return RedirectToAction("Product_List");
+            }
+        }
+        #endregion
+
+        #region Product Filter
+        public IActionResult ProductFilter(ProductFilterModel productFilterModel)
+        {
+            if (ModelState.IsValid)
+            {
+                DataTable dataTable = dalProduct.ProductFilter(productFilterModel);
+                ViewBag.CategoryList = dalProduct.CategoryDropDown();
+                ModelState.Clear();
+                return View("Product_ShoppingProductList", dataTable);
+            }
+            else
+            {
+                // Handle invalid model state if needed
+                return View("Product_ShoppingProductList");
             }
         }
         #endregion

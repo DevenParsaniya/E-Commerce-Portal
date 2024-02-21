@@ -28,5 +28,16 @@
 
             return UserName;
         }
+        public static string? CartCount()
+        {
+            string? CartCount = null;
+            if (_httpContextAccessor.HttpContext.Session.GetString("CartCount") != null)
+            {
+                CartCount =
+               _httpContextAccessor.HttpContext.Session.GetString("CartCount").ToString();
+            }
+
+            return CartCount;
+        }
     }
 }

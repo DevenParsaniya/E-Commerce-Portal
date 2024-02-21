@@ -28,4 +28,9 @@
 
         public DateTime? ModifiedAt { get; set; }
     }
+    public class ProductFilterModel
+    {
+        public int? CategoryID { get; set; }
+        public string? ProductName { get; set; }
+    }
 }

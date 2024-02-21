@@ -1,25 +1,53 @@
 ﻿﻿@{
     ViewData["Title"] = "Category List";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    CategoryFilterModel categoryFilterModel = new CategoryFilterModel();
 }
 
 @using System.Data
+@using E_Commerce_Website.Areas.Category.Models
 @model DataTable
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h1>Category List Page</h1>
 
-<h3>Category List Page</h3>
-
-<div class="col-lg-12 grid-margin stretch-card">
+@{
+    if (@TempData["Message"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
+<br />
+<div class="table-header d-flex">
+    <div class="col-6 col-md-10">
+        <form class="search-form d-flex align-items-center" method="POST" asp-area="Category" asp-controller="Category" asp-action="CategoryFilter">
+            <input class="form-control" type="search" asp-for="@categoryFilterModel.CategoryName" name="CategoryName" placeholder="Search by Category Name">
+            <button class="btn" type="submit"><i class="fa fa-search" style="color:blue"></i></button>
+        </form>
+    </div>
+    <br/>
+    <div class="add-button mr-auto">
+            <a asp-area="Category" asp-controller="Category" asp-action="CategoryAdd">
+                <input type="button" class="btn btn-primary" value="Add New Record" />
+            </a>
+    </div>
+</div>
+<br/>
+<div class="col-lg-12 grid-margin stretch-card shadow-lg bg-white rounded">
     <div class="card">
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive text-nowrap">
                 <table class="table table-striped">
                     <thead>
                         <tr class="text-center">
-                            <th>Category</th>
-                            <th>Category Description</th>
-                            <th>Creation Date</th>
-                            <th>Modification Date</th>
-                            <th>Actions</th>
+                            <th scope="col"><b>Category</b></th>
+                            <th scope="col"><b>Category Description</b></th>
+                            <th scope="col"><b>Creation Date</b></th>
+                            <th scope="col"><b>Modification Date</b></th>
+                            <th scope="col"><b>Actions</b></th>
                         </tr>
                     </thead>
                     <tbody>

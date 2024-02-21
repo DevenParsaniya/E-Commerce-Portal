@@ -17,4 +17,8 @@ namespace E_Commerce_Website.Areas.Category.Models
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
     }
+    public class CategoryFilterModel
+    {
+        public string? CategoryName { get; set; }
+    }
 }
