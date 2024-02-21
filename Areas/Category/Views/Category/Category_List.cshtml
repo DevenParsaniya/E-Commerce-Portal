@@ -6,13 +6,11 @@
 @using System.Data
 @model DataTable
 
+<h3>Category List Page</h3>
+
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Striped Table</h4>
-            <p class="card-description">
-                Add class <code>.table-striped</code>
-            </p>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -39,11 +37,11 @@
                                         <td>
                                             <form method="post" asp-area="Category" asp-controller="Category" asp-action="CategoryDelete">
                                                 <input type="hidden" name="CategoryID" value="@dr["CategoryID"]">
-                                                <button type="submit" class="btn btn-danger btn-xs"
-                                                        onclick="return AlertForDelete();">
+                                                <button type="submit" class="btn btn-danger"
+                                                        onclick="return fun1()">
                                                     Delete
                                                 </button>
-                                                <a class="btn btn-warning btn-xs" asp-area="Category" asp-controller="Category"
+                                                <a class="btn btn-warning" asp-area="Category" asp-controller="Category"
                                                    asp-action="CategoryAdd" asp-route-CategoryID="@dr["CategoryID"]">
                                                     Update
                                                 </a>
@@ -71,8 +69,8 @@
 @section Scripts
 {
     <script>
-        function AlertForDelete() {
-            if (Confirm("Are you sure want to Delete record ?")) {
+        function fun1() {
+            if (confirm("Are you sure you want to Delete record?")) {
                 return true;
             }
             else {
