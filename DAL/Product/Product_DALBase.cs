@@ -3,6 +3,8 @@ using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.Common;
 using System.Data;
+using E_Commerce_Website.Areas.Category.Models;
+using E_Commerce_Website.DAL.Category;
 
 namespace E_Commerce_Website.DAL.Product
 {
@@ -80,7 +82,7 @@ namespace E_Commerce_Website.DAL.Product
             {
                 if (productModel.ProductID == 0)
                 {
-                    if (productModel.UploadImage != null)
+                    if (productModel.PhotoPath != null)
                     {
                         string FilePath = "wwwroot\\Upload";
                         string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
@@ -88,16 +90,16 @@ namespace E_Commerce_Website.DAL.Product
                         {
                             Directory.CreateDirectory(path);
                         }
-                        string fileNameWithPath = Path.Combine(path, productModel.UploadImage.FileName);
+                        string fileNameWithPath = Path.Combine(path, productModel.PhotoPath.FileName);
 
-                        productModel.ProductImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + productModel.UploadImage.FileName;
+                        productModel.ProductImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + productModel.PhotoPath.FileName;
 
                         using (FileStream fileStream = new FileStream(fileNameWithPath, FileMode.Create))
                         {
-                            productModel.UploadImage.CopyTo(fileStream);
+                            productModel.PhotoPath.CopyTo(fileStream);
                         }
                     }
-                    DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Product_Indert");
+                    DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Product_Insert");
                     sqlDatabase.AddInParameter(dbCommand, "@ProductName", DbType.String, productModel.ProductName);
                     sqlDatabase.AddInParameter(dbCommand, "@ProductDescription", DbType.String, productModel.ProductDescription);
                     sqlDatabase.AddInParameter(dbCommand, "@ProductPrice", DbType.Int32, productModel.ProductPrice);
@@ -116,7 +118,7 @@ namespace E_Commerce_Website.DAL.Product
                 }
                 else
                 {
-                    if (productModel.UploadImage != null)
+                    if (productModel.PhotoPath != null)
                     {
                         string FilePath = "wwwroot\\Upload";
                         string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
@@ -124,13 +126,13 @@ namespace E_Commerce_Website.DAL.Product
                         {
                             Directory.CreateDirectory(path);
                         }
-                        string fileNameWithPath = Path.Combine(path, productModel.UploadImage.FileName);
+                        string fileNameWithPath = Path.Combine(path, productModel.PhotoPath.FileName);
 
-                        productModel.ProductImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + productModel.UploadImage.FileName;
+                        productModel.ProductImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + productModel.PhotoPath.FileName;
 
                         using (FileStream fileStream = new FileStream(fileNameWithPath, FileMode.Create))
                         {
-                            productModel.UploadImage.CopyTo(fileStream);
+                            productModel.PhotoPath.CopyTo(fileStream);
                         }
                     }
                     DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Product_UpdateByPK");
@@ -143,7 +145,6 @@ namespace E_Commerce_Website.DAL.Product
                     sqlDatabase.AddInParameter(dbCommand, "@ProductImage", DbType.String, productModel.ProductImage);
                     sqlDatabase.AddInParameter(dbCommand, "@DiscountPercentage", DbType.Int32, productModel.DiscountPercentage);
                     sqlDatabase.AddInParameter(dbCommand, "@ProductRating", DbType.Int32, productModel.ProductRating);
-                    sqlDatabase.AddInParameter(dbCommand, "@CreatedAt", DbType.DateTime, DBNull.Value);
                     sqlDatabase.AddInParameter(dbCommand, "@ModifiedAt", DbType.DateTime, DBNull.Value);
                     bool isSuccess = Convert.ToBoolean(sqlDatabase.ExecuteNonQuery(dbCommand));
                     return isSuccess;
@@ -181,7 +182,7 @@ namespace E_Commerce_Website.DAL.Product
                     productModel.CategoryID = Convert.ToInt32(dataRow["CategoryID"]);
                     productModel.IsActive = Convert.ToBoolean(dataRow["IsActive"]);
                     productModel.DiscountPercentage = Convert.ToInt32(dataRow["DiscountPercentage"].ToString());
-                    productModel.ProductRating = Convert.ToInt32(dataRow["ProductRating"].ToString());
+                    productModel.ProductRating = Convert.ToInt32(dataRow["ProductRating"]);
                     productModel.CreatedAt = Convert.ToDateTime(dataRow["CreatedAt"]);
                     productModel.ModifiedAt = Convert.ToDateTime(dataRow["ModifiedAt"]);
                 }
@@ -260,4 +261,3 @@ namespace E_Commerce_Website.DAL.Product
     }
     #endregion
 }
-

@@ -32,9 +32,9 @@ namespace E_Commerce_Website.Areas.SEC_User.Models
         public IFormFile? ProfileImage { get; set; }
 
         [DisplayName("Is Admin")]
-        public bool IsAdmin { get; set; }
+        public bool? IsAdmin { get; set; }
         [DisplayName("Is Active")]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         [ScaffoldColumn(false)] // Hide these fields from scaffolding
         public DateTime CreatedAt { get; set; }

@@ -53,19 +53,15 @@ namespace E_Commerce_Website.Areas.Product.Controllers
         #region Product Save (Insert & Update)
         public IActionResult ProductSave(ProductModel productModel)
         {
-            if (ModelState.IsValid)
+            if (dalProduct.ProductSave(productModel))
             {
-                if (dalProduct.ProductSave(productModel))
-                {
-                    TempData["Save"] = "Product Saved Successfully";
-                    return RedirectToAction("Product_List");
-                }
-                else
-                {
-                    return RedirectToAction("Product_List");
-                }
+                TempData["Save"] = "Product Saved Successfully";
+                return RedirectToAction("Product_List");
             }
-            return View("Product_AddEdit");
+            else
+            {
+                return RedirectToAction("Product_List");
+            }
         }
         #endregion
 
@@ -73,9 +69,9 @@ namespace E_Commerce_Website.Areas.Product.Controllers
         public IActionResult ProductAdd(int ProductID)
         {
             ProductModel productModel = dalProduct.ProductSelectByID(ProductID);
+            ViewBag.CategoryList = dalProduct.CategoryDropDown();
             if (productModel != null)
             {
-                ViewBag.CategoryList = dalProduct.CategoryDropDown();
                 return View("Product_AddEdit", productModel);
             }
             else
@@ -135,14 +131,14 @@ namespace E_Commerce_Website.Areas.Product.Controllers
             if (ModelState.IsValid)
             {
                 DataTable dataTable = dalProduct.ProductFilter(productFilterModel);
-                ViewBag.CategoryList = dalProduct.CategoryDropDown();
+                //ViewBag.CategoryList = dalProduct.CategoryDropDown();
                 ModelState.Clear();
-                return View("Product_ShoppingProductList", dataTable);
+                return View("Product_List", dataTable);
             }
             else
             {
                 // Handle invalid model state if needed
-                return View("Product_ShoppingProductList");
+                return View("Product_List");
             }
         }
         #endregion

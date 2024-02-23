@@ -46,7 +46,7 @@ namespace E_Commerce_Website.DAL.Product
                 DataTable dataTable = new DataTable();
                 SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
                 DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Product_Filter");
-                sqlDatabase.AddInParameter(dbCommand, "@CategoryID", DbType.Int32, productFilterModel.CategoryID);
+                //sqlDatabase.AddInParameter(dbCommand, "@CategoryID", DbType.Int32, productFilterModel.CategoryID);
                 sqlDatabase.AddInParameter(dbCommand, "@ProductName", DbType.String, productFilterModel.ProductName);
                 using (IDataReader dataReader = sqlDatabase.ExecuteReader(dbCommand))
                 {
