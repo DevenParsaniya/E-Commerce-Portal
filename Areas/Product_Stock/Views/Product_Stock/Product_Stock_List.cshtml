@@ -1,16 +1,15 @@
 ﻿﻿@{
-    ViewData["Title"] = "Product List";
+    ViewData["Title"] = "Product Stock List";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
-    ProductFilterModel productFilterModel = new ProductFilterModel();
+    Product_StockFilterModel product_StockFilterModel = new Product_StockFilterModel();
 }
 
 @using System.Data
-@using E_Commerce_Website.Areas.Product.Models
-@model DataTable
+@using E_Commerce_Website.Areas.Product_Stock.Models
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<h1>Product List Page</h1>
+<h1>Product Stock List Page</h1>
 
 @{
     if (@TempData["Message"] != null)
@@ -24,15 +23,15 @@
 <br />
 <div class="table-header d-flex">
     <div class="col-6 col-md-10">
-        <form class="search-form d-flex align-items-center" method="POST" asp-area="Product" asp-controller="Product" asp-action="ProductFilter">
-            <input class="form-control" type="search" asp-for="@productFilterModel.ProductName" name="ProductName" placeholder="Search by Product Name">
+        <form class="search-form d-flex align-items-center" method="POST" asp-area="Product_Stock" asp-controller="Product_Stock" asp-action="ProductFilter">
+            <input class="form-control" type="search" asp-for="@product_StockFilterModel.ProductName" name="ProductName" placeholder="Search by Product Name">
             <button class="btn" type="submit"><i class="fa fa-search" style="color:blue"></i></button>
         </form>
     </div>
     <br />
     <div class="add-button mr-auto">
-        <a asp-area="Product" asp-controller="Product" asp-action="ProductAdd">
-            <input type="button" class="btn btn-primary" value="Add New Product" />
+        <a asp-area="Product_Stock" asp-controller="Product_Stock" asp-action="Product_StockAdd">
+            <input type="button" class="btn btn-primary" value="Add New Product Stock" />
         </a>
     </div>
 </div>
@@ -41,17 +40,16 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive text-nowrap">
+                @model DataTable
 
                 <table class="table table-striped">
                     <thead>
                         <tr class="text-center">
                             <th scope="col"><b>Category Name</b></th>
-                            <th scope="col"><b>ProductName</b></th>
-                            <th scope="col"><b>ProductCode</b></th>
-                            <th scope="col"><b>ProductPrice</b></th>
-                            <th scope="col"><b>ProductImage</b></th>
-                            <th scope="col"><b>ProductRating</b></th>
-                            <th scope="col"><b>DiscountPercentage</b></th>
+                            <th scope="col"><b>Product Name</b></th>
+                            <th scope="col"><b>Product Code</b></th>
+                            <th scope="col"><b>Product Price</b></th>
+                            <th scope="col"><b>Stock Quantity</b></th>
                             <th scope="col"><b>Creation Date</b></th>
                             <th scope="col"><b>Modification Date</b></th>
                             <th scope="col"><b>Actions</b></th>
@@ -59,7 +57,7 @@
                     </thead>
                     <tbody>
                         @{
-                            if (Model.Rows.Count > 0)
+                            if (Model != null && Model.Rows != null && Model.Rows.Count > 0)
                             {
                                 foreach (DataRow dr in Model.Rows)
                                 {
@@ -69,20 +67,18 @@
                                         <td>@dr["ProductName"]</td>
                                         <td>@dr["ProductCode"]</td>
                                         <td>@dr["ProductPrice"]</td>
-                                        <td><img src="@Url.Content(dr["ProductImage"].ToString())" /></td>
-                                        <td>@dr["ProductRating"]</td>
-                                        <td>@dr["DiscountPercentage"]</td>
+                                        <td>@dr["StockQuantity"]</td>
                                         <td>@dr["CreatedAt"]</td>
                                         <td>@dr["ModifiedAt"]</td>
                                         <td>
-                                            <form method="post" asp-area="Product" asp-controller="Product" asp-action="ProductDelete">
-                                                <input type="hidden" name="ProductID" value="@dr["ProductID"]">
+                                            <form method="post" asp-area="Product_Stock" asp-controller="Product_Stock" asp-action="Product_StockDelete">
+                                                <input type="hidden" name="StockID" value="@dr["StockID"]">
                                                 <button type="submit" class="btn btn-danger"
                                                         onclick="return fun1()">
                                                     Delete
                                                 </button>
-                                                <a class="btn btn-warning" asp-area="Product" asp-controller="Product"
-                                                   asp-action="ProductAdd" asp-route-ProductID="@dr["ProductID"]">
+                                                <a class="btn btn-warning" asp-area="Product_Stock" asp-controller="Product_Stock"
+                                                   asp-action="Product_StockAdd" asp-route-StockID="@dr["StockID"]">
                                                     Update
                                                 </a>
                                             </form>
@@ -117,37 +113,5 @@
                 return false;
             }
         }
-        $(document).ready(function () {
-            var selectedProductIDs = [];
-            // "Select All" checkbox change event
-            $("#selectAll").on("change", function () {
-                var isChecked = $(this).prop("checked");
-                $(".form-check-input").prop("checked", isChecked);
-                updateSelectedProductIDs(); // Update the selected product IDs
-            });
-            // Individual checkbox change event
-            $(".form-check-input").on("change", function () {
-                updateSelectedProductIDs(); // Update the selected product IDs
-            });
-            // Update the array of selected product IDs
-            function updateSelectedProductIDs() {
-                selectedProductIDs = [];
-                $(".form-check-input:checked").each(function () {
-                    var productID = $(this).data("product-id");
-                    if (productID !== undefined) {
-                        selectedProductIDs.push(productID);
-                    }
-                });
-                console.log("Selected Product IDs: ", selectedProductIDs);
-            }
-            // Search functionality
-            $("#sample_1").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#sample_2 tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-            $("#selectedProductIDs").val(selectedProductIDs.join(","));
-        });
     </script>
 }

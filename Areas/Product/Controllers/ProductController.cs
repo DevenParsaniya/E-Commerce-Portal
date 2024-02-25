@@ -1,4 +1,5 @@
-﻿using E_Commerce_Website.Areas.Product.Models;
+﻿using E_Commerce_Website.Areas.Category.Models;
+using E_Commerce_Website.Areas.Product.Models;
 using E_Commerce_Website.DAL.Category;
 using E_Commerce_Website.DAL.Product;
 using Microsoft.AspNetCore.Mvc;
@@ -53,15 +54,20 @@ namespace E_Commerce_Website.Areas.Product.Controllers
         #region Product Save (Insert & Update)
         public IActionResult ProductSave(ProductModel productModel)
         {
-            if (dalProduct.ProductSave(productModel))
+            if (ModelState.IsValid)
             {
-                TempData["Save"] = "Product Saved Successfully";
-                return RedirectToAction("Product_List");
+                if (dalProduct.ProductSave(productModel))
+                {
+                    TempData["Save"] = "Product Saved Successfully";
+                    return RedirectToAction("Product_List");
+                }
+                else
+                {
+                    return RedirectToAction("Product_List");
+                }
             }
-            else
-            {
-                return RedirectToAction("Product_List");
-            }
+            return View("Product_AddEdit");
+
         }
         #endregion
 

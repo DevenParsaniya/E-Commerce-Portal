@@ -80,7 +80,7 @@ namespace E_Commerce_Website.DAL.Product
             SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
             try
             {
-                if (productModel.ProductID == 0)
+                if (productModel.ProductID == 0 || productModel.ProductID == null)
                 {
                     if (productModel.PhotoPath != null)
                     {

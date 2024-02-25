@@ -18,6 +18,7 @@
     <Folder Include="Areas\Address\Views\" />
     <Folder Include="Areas\Cart\Data\" />
     <Folder Include="Areas\Checkout\Data\" />
+    <Folder Include="Areas\Product_Stock\Data\" />
     <Folder Include="Areas\SEC_Admin\Models\" />
   </ItemGroup>
 
