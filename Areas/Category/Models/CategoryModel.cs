@@ -14,7 +14,7 @@ namespace E_Commerce_Website.Areas.Category.Models
     }
     public class CategoryDropDownModel
     {
-        public int CategoryID { get; set; }
+        public int? CategoryID { get; set; }
         public string CategoryName { get; set; }
     }
     public class CategoryFilterModel

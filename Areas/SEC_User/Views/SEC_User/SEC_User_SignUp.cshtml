@@ -5,7 +5,6 @@
 
 @using E_Commerce_Website.Areas.SEC_User.Models;
 @model SEC_UserModel
-
 <body class="bg-primary">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
@@ -16,58 +15,62 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                                 <div class="card-body">
-                                    <form asp-area="SEC_User" asp-controller="SEC_User" asp-action="Register">
-                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <form method="post" asp-area="SEC_User" asp-controller="SEC_User" asp-action="Register">
+                                        <div class="text-danger"></div>
                                         <div class="form-floating mb-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="inputUserName" asp-for="UserName" type="text" placeholder="Enter your User name" />
+                                                <input class="form-control" id="inputUserName" asp-for="UserName" type="text" placeholder="Enter your User name" required/>
                                                 <label for="inputFirstName">User name
-                                                <div class="text-danger">@Html.Raw(TempData["UserNameError"]) </div>
                                                 </label>
                                             </div>
+                                            <div class="text-danger">@Html.Raw(TempData["UserNameError"]) </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" id="inputFirstName" asp-for="FirstName" type="text" placeholder="Enter your first name" />
+                                                    <input class="form-control" id="inputFirstName" asp-for="FirstName" type="text" placeholder="Enter your first name" required/>
                                                     <label for="inputFirstName">First name
-                                                    <div class="text-danger">@Html.Raw(TempData["FirstNameError"]) </div>
                                                     </label>
                                                 </div>
+                                                <div class="text-danger">@Html.Raw(TempData["FirstNameError"]) </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" id="inputLastName" asp-for="LastName" type="text" placeholder="Enter your last name" />
+                                                    <input class="form-control" id="inputLastName" asp-for="LastName" type="text" placeholder="Enter your last name" required/>
                                                     <label for="inputLastName">Last name
-                                                    <div class="text-danger">@Html.Raw(TempData["LastNameError"]) </div>
                                                     </label>
                                                 </div>
+                                                <div class="text-danger">@Html.Raw(TempData["LastNameError"]) </div>
                                             </div>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" asp-for="UserEmail" type="email" placeholder="name@example.com" />
+                                            <input class="form-control" id="inputEmail" asp-for="UserEmail" type="email" placeholder="name@example.com" required/>
                                             <label for="inputEmail">Email address
-                                            <div class="text-danger">@Html.Raw(TempData["EmailAddressError"]) </div>
                                             </label>
+                                            <div class="text-danger">@Html.Raw(TempData["EmailAddressError"]) </div>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="inputMobileNumber" asp-for="MobileNumber" type="text" placeholder="Enter your Mobile Number" />
+                                                <input class="form-control" id="inputMobileNumber" asp-for="MobileNumber" type="text" placeholder="Enter your Mobile Number" required/>
                                                 <label for="inputMobileNumber">Mobile Number
-                                                <div class="text-danger">@Html.Raw(TempData["MobileNumberError"]) </div>
                                                 </label>
+                                                <div class="text-danger">@Html.Raw(TempData["MobileNumberError"]) </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="inputPassword" asp-for="Password" type="password" placeholder="Create a password" />
+                                                <input class="form-control" id="inputPassword" asp-for="Password" type="password" placeholder="Create a password" required/>
                                                     <label for="inputPassword">Password
-                                                    <div class="text-danger">@Html.Raw(TempData["PasswordError"]) </div>
                                                     </label>
                                                 </div>
+                                            <div class="text-danger">@Html.Raw(TempData["PasswordError"]) </div>
                                         </div>
                                         <div class="mt-4 mb-0">
-                                            <div class="d-grid"><a class="btn btn-primary btn-block" asp-area="SEC_User" asp-controller="SEC_User" asp-action="Register">Create Account</a></div>
+                                            <div class="d-grid">
+                                                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+
+@*                                                 <a class="btn btn-primary btn-block" asp-area="SEC_User" asp-controller="SEC_User" asp-action="Register">Create Account</a>
+ *@                                            </div>
                                         </div>
                                     </form>
                                 </div>

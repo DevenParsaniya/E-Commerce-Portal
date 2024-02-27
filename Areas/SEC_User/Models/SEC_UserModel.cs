@@ -9,7 +9,7 @@ namespace E_Commerce_Website.Areas.SEC_User.Models
 
         [Required(ErrorMessage = "User Name is required")]
         [DisplayName("User Name")]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [DisplayName("Password")]
@@ -19,14 +19,14 @@ namespace E_Commerce_Website.Areas.SEC_User.Models
         public string FirstName { get; set; }
 
         [DisplayName("Last Name")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [DisplayName("MobileNumber")]
-        public string MobileNumber { get; set; }
+        public string? MobileNumber { get; set; }
 
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [DisplayName("Email Address")]
-        public string UserEmail { get; set; }
+        public string? UserEmail { get; set; }
 
         [DisplayName("Profile Picture")]
         public IFormFile? ProfileImage { get; set; }

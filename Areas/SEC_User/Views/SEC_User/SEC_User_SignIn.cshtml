@@ -13,24 +13,26 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="row justify-content-center"> <img class="logo" src="~/images/logo.png" alt="logo"></div>
+                                <div class="row justify-content-center">Online Shopping</div>
                                 <div class="card-header">
                                     <h3 class="text-center font-weight-light my-4">Login</h3>
                                 </div>
                                 <div class="card-body">
                                     <form asp-area="SEC_User" asp-controller="SEC_User" asp-action="Login">
+                                        <label class="required form-label mb-2" for="inputEmail">
+                                            User Name
+                                        </label>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputUserName" asp-for="UserName" type="text" placeholder="User Name" />
-                                            <label for="inputEmail">User Name
-                                                <div class="text-danger">@Html.Raw(TempData["UserNameError"]) </div>
-                                            </label>
+                                            <input class="form-control"  asp-for="UserName" type="text" />
                                         </div>
+                                        <div class="text-danger">@Html.Raw(TempData["UserNameError"]) </div>
+                                        <label class="required form-label mb-2" for="inputPassword">
+                                            Password
+                                        </label>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputPassword" asp-for="Password" type="password" placeholder="Password" />
-                                            <label for="inputPassword">Password
-                                                <div class="text-danger">@Html.Raw(TempData["PasswordError"]) </div>
-                                            </label>
+                                            <input class="form-control"  asp-for="Password" type="password" />
                                         </div>
+                                        <div class="text-danger">@Html.Raw(TempData["PasswordError"]) </div>
                                         <div class="form-check mb-3">
                                             <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
                                             <label class="form-check-label" for="inputRememberPassword">Remember Password</label>

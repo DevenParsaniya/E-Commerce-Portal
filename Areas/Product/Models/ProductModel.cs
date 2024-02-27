@@ -42,7 +42,7 @@ namespace E_Commerce_Website.Areas.Product.Models
     }
     public class ProductDropDownModel
     {
-        public int ProductID { get; set; }
+        public int? ProductID { get; set; }
         public string ProductName { get; set; }
     }
 }

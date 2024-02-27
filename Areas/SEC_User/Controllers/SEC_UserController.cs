@@ -106,7 +106,6 @@ namespace E_Commerce_Website.Areas.SEC_User.Controllers
         #region Register
         public IActionResult Register(SEC_UserModel sEC_UserModel)
         {
-
             if (sEC_UserModel.UserName == null)
             {
                 TempData["UserNameError"] = "User Name is Required!";
