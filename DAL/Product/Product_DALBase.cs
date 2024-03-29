@@ -136,12 +136,13 @@ namespace E_Commerce_Website.DAL.Product
                         }
                     }
                     DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Product_UpdateByPK");
+                    sqlDatabase.AddInParameter(dbCommand, "@ProductID", DbType.Int32, productModel.ProductID);
                     sqlDatabase.AddInParameter(dbCommand, "@ProductName", DbType.String, productModel.ProductName);
                     sqlDatabase.AddInParameter(dbCommand, "@ProductDescription", DbType.String, productModel.ProductDescription);
                     sqlDatabase.AddInParameter(dbCommand, "@ProductPrice", DbType.Int32, productModel.ProductPrice);
                     sqlDatabase.AddInParameter(dbCommand, "@ProductCode", DbType.String, productModel.ProductCode);
                     sqlDatabase.AddInParameter(dbCommand, "@CategoryID", DbType.Int32, productModel.CategoryID);
-                    sqlDatabase.AddInParameter(dbCommand, "@IsActive", DbType.Boolean, DBNull.Value);
+                    sqlDatabase.AddInParameter(dbCommand, "@IsActive", DbType.Boolean, productModel.IsActive);
                     sqlDatabase.AddInParameter(dbCommand, "@ProductImage", DbType.String, productModel.ProductImage);
                     sqlDatabase.AddInParameter(dbCommand, "@DiscountPercentage", DbType.Int32, productModel.DiscountPercentage);
                     sqlDatabase.AddInParameter(dbCommand, "@ProductRating", DbType.Int32, productModel.ProductRating);

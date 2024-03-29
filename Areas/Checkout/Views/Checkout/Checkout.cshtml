@@ -12,7 +12,7 @@
         <div class="row">
             <a asp-controller="Home" asp-action="Index">Home</a>
             <span class="mx-2 mb-0">/</span>
-            <a asp-area="Cart" asp-controller="Cart" asp-action="CartList">Cart</a>
+            <a asp-area="Cart" asp-controller="Cart" asp-action="Cart_List">Cart</a>
             <span class="mx-2 mb-0">/</span>
             <strong class="text-black">Checkout</strong>
         </div>
@@ -38,7 +38,7 @@
                                 {
                                     <tr>
                                         <td>@dataRow["ProductName"]<strong class="mx-2">x</strong>@dataRow["ProductQuantity"]</td>
-                                        <td>@(Convert.ToDouble(dataRow["Price"]) * Convert.ToDouble(dataRow["ProductQuantity"]))</td>
+                                        <td>@(Convert.ToDouble(dataRow["ProductPrice"]) * Convert.ToDouble(dataRow["ProductQuantity"]))</td>
                                     </tr>
                                 }
                                 <tr>
@@ -54,8 +54,10 @@
 
                         <form asp-area="Order" asp-controller="Order" asp-action="Order_Insert" method="post">
                             <input type="hidden" name="userid" value="@Convert.ToInt32(CommonVariable.UserID())" />
-                            <input type="hidden" name="addressid" value="@Model.AddressTable.Rows[0]["AddressID"]" />
-
+                            @if (Model.AddressTable.Rows.Count > 0)
+                            {
+                                <input type="hidden" name="addressid" value="@Model.AddressTable.Rows[0]["AddressID"]" />
+                            }
                             @foreach (DataRow dataRow in Model.CartTable.Rows)
                             {
                                 <input type="hidden" name="productids[]" value="@dataRow["ProductID"]" />

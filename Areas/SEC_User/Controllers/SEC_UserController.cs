@@ -1,4 +1,5 @@
-﻿using E_Commerce_Website.Areas.SEC_User.Models;
+﻿using E_Commerce_Website.Areas.Product.Models;
+using E_Commerce_Website.Areas.SEC_User.Models;
 using E_Commerce_Website.DAL.SEC_User;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -147,6 +148,71 @@ namespace E_Commerce_Website.Areas.SEC_User.Controllers
                     return RedirectToAction("SEC_User_SignUp");
                 }
             }
+        }
+        #endregion
+
+        #region User Filter
+        public IActionResult SEC_UserFilter(SEC_UserFilterModel sEC_UserFilterModel)
+        {
+            if (ModelState.IsValid)
+            {
+                DataTable dataTable = dalSEC_User.SEC_UserFilter(sEC_UserFilterModel);
+                ModelState.Clear();
+                return View("User_List", dataTable);
+            }
+            else
+            {
+                // Handle invalid model state if needed
+                return View("User_List");
+            }
+        }
+        #endregion
+
+        #region User Save (Insert & Update)
+        public IActionResult SEC_UserSave(SEC_UserModel sEC_UserModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (dalSEC_User.SEC_UserSave(sEC_UserModel))
+                {
+                    TempData["Save"] = "User Saved Successfully";
+                    return RedirectToAction("User_List");
+                }
+                else
+                {
+                    return RedirectToAction("User_List");
+                }
+            }
+            return View("User_AddEdit");
+
+        }
+        #endregion
+
+        #region User By ID
+        public IActionResult SEC_UserAdd(int UserID)
+        {
+            SEC_UserModel sEC_UserModel = dalSEC_User.SEC_UserEdit(UserID);
+            if (sEC_UserModel != null)
+            {
+                return View("Product_AddEdit", sEC_UserModel);
+            }
+            else
+            {
+                return View("User_AddEdit");
+            }
+        }
+        #endregion
+
+        #region User Delete
+        public IActionResult SEC_UsertDelete(int UserID)
+        {
+            bool isSuccess = dalSEC_User.SEC_UserDeleteByID(UserID);
+            if (isSuccess)
+            {
+                TempData["Delete"] = "User Deleted Successfully";
+                return RedirectToAction("User_List");
+            }
+            return RedirectToAction("User_List");
         }
         #endregion
     }

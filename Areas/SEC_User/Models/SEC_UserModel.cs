@@ -49,5 +49,9 @@ namespace E_Commerce_Website.Areas.SEC_User.Models
         [Required]
         public string Password { get; set; }
     }
-
+    public class SEC_UserFilterModel
+    {
+        public int? UserID { get; set; }
+        public string UserName { get; set; }
+    }
 }

@@ -48,7 +48,7 @@
                                                 <div class="input-group-prepend">
                                                     <a class="btn btn-outline-primary" asp-area="Cart" asp-controller="Cart" asp-action="Decrement_Quantity" asp-route-productid="@Convert.ToInt32(dataRow["ProductID"])" asp-route-userid="@Convert.ToInt32(CommonVariable.UserID())">&minus;</a>
                                                 </div>
-                                                <lable class="form-control text-center">@dataRow["Quantity"]</lable>
+                                                <lable class="form-control text-center">@dataRow["ProductQuantity"]</lable>
                                                 <div class="input-group-append">
                                                     <a class="btn btn-outline-primary" asp-area="Cart" asp-controller="Cart" asp-action="Increment_Quantity" asp-route-productid="@Convert.ToInt32(dataRow["ProductID"])" asp-route-userid="@Convert.ToInt32(CommonVariable.UserID())">&plus;</a>
                                                 </div>
@@ -70,10 +70,10 @@
                 <div class="col-md-6">
                     <div class="row mb-5">
                         <div class="col-md-6 mb-3 mb-md-0">
-                            <a class="btn btn-primary btn-sm btn-block" asp-area="Cart" asp-controller="Cart" asp-action="CartList">Update Cart</a>
+                            <a class="btn btn-primary btn-sm btn-block" asp-area="Cart" asp-controller="Cart" asp-action="Cart_List">Update Cart</a>
                         </div>
                         <div class="col-md-6">
-                            <a class="btn btn-outline-primary btn-sm btn-block" asp-area="Product" asp-controller="Product" asp-action="ShoppingProductList">Continue Shopping</a>
+                            <a class="btn btn-outline-primary btn-sm btn-block" asp-area="Product" asp-controller="Product" asp-action="Product_Shopping_ProductList">Continue Shopping</a>
                         </div>
                     </div>
                     <div class="row">

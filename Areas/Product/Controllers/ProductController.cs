@@ -26,7 +26,7 @@ namespace E_Commerce_Website.Areas.Product.Controllers
         #endregion
 
         #region Product List (In Active Select All)
-        public IActionResult DeletedProductList()
+        public IActionResult Product_Deleted_List()
         {
             DataTable dataTable = dalProduct.ProductDeletedSelectAll();
             ViewBag.Retrive = TempData["Retrive"];
@@ -35,7 +35,7 @@ namespace E_Commerce_Website.Areas.Product.Controllers
         #endregion
 
         #region Product List Select All (User Side)
-        public IActionResult ShoppingProductList()
+        public IActionResult Product_Shopping_ProductList()
         {
             DataTable dataTable = dalProduct.ProductSelectAll();
             ViewBag.Category_List = dalProduct.CategoryDropDown();
@@ -44,7 +44,7 @@ namespace E_Commerce_Website.Areas.Product.Controllers
         #endregion
 
         #region Product List Select By ID (User Side)
-        public IActionResult ShoppingProductByID(int ProductID)
+        public IActionResult Product_Shopping_ProductByID(int ProductID)
         {
             DataTable dataTable = dalProduct.ShoppingProductByID(ProductID);
             return View(dataTable);

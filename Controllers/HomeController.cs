@@ -45,7 +45,7 @@ namespace E_Commerce_Website.Controllers
             return View();
         }
 
-        public IActionResult Thank_You()
+        public IActionResult ThankYou()
         {
             //var message = new MimeMessage();
             //message.From.Add(new MailboxAddress("Yash Khokhar", "yashkhokhar28@gmail.com"));

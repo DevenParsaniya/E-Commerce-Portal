@@ -2,6 +2,7 @@
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.Common;
 using System.Data;
+using E_Commerce_Website.Areas.SEC_User.Models;
 
 namespace E_Commerce_Website.DAL.SEC_User
 {
@@ -73,6 +74,28 @@ namespace E_Commerce_Website.DAL.SEC_User
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+        #endregion
+
+        #region Method : UserFilter
+        public DataTable SEC_UserFilter(SEC_UserFilterModel sEC_userFilterModel)
+        {
+            try
+            {
+                DataTable dataTable = new DataTable();
+                SqlDatabase sqlDatabase = new SqlDatabase(ConnectionString);
+                DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_User_Filter");
+                sqlDatabase.AddInParameter(dbCommand, "@UserName", DbType.String, sEC_userFilterModel.UserName);
+                using (IDataReader dataReader = sqlDatabase.ExecuteReader(dbCommand))
+                {
+                    dataTable.Load(dataReader);
+                }
+                return dataTable;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
         #endregion

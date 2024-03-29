@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using E_Commerce_Website.BAL
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -142,8 +143,10 @@
                     </li>
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                            <img src="images/faces/face5.jpg" alt="profile" />
-                            <span class="nav-profile-name">Louis Barnett</span>
+                            <img src="~/images/faces/face5.jpg" alt="profile" />
+                            <span class="nav-profile-name">
+                                @CommonVariable.UserName()
+                            </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                             <a class="dropdown-item">
@@ -213,7 +216,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic4">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
                             <i class="mdi mdi-circle-outline menu-icon"></i>
                             <span class="menu-title">Users</span>
                             <i class="menu-arrow"></i>
@@ -225,7 +228,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic5">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
                             <i class="mdi mdi-circle-outline menu-icon"></i>
                             <span class="menu-title">Order</span>
                             <i class="menu-arrow"></i>

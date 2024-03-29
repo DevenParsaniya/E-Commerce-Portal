@@ -1,9 +1,11 @@
 ﻿﻿@{
     ViewData["Title"] = "Product List";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ProductFilterModel productFilterModel = new ProductFilterModel();
 }
 
 @using System.Data
+@using E_Commerce_Website.Areas.Product.Models
 @model DataTable
 
 <div class="site-wrap">
@@ -57,7 +59,7 @@
                             <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                                 <div class="block-4 text-center border">
                                     <figure class="block-4-image">
-                                        <a asp-area="Product" asp-controller="Product" asp-action="ShoppingProductByID" asp-route-productid="@Convert.ToInt32(dataRow["ProductID"])"><img src="@Url.Content(dataRow["ProductImage"].ToString())" alt="Image placeholder" class="img-fluid"></a>
+                                        <a asp-area="Product" asp-controller="Product" asp-action="Product_Shopping_ProductByID" asp-route-productid="@Convert.ToInt32(dataRow["ProductID"])"><img src="@Url.Content(dataRow["ProductImage"].ToString())" alt="Image placeholder" class="img-fluid"></a>
                                     </figure>
                                     <div class="block-4-text p-4">
                                         <h3><a href="shop-single.html">@dataRow["ProductName"]</a></h3>

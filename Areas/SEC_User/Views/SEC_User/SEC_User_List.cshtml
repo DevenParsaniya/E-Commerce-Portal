@@ -1,12 +1,14 @@
 ﻿﻿@{
     ViewData["Title"] = "User List";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    SEC_UserModel sEC_UserFilterModel = new SEC_UserModel();
 }
 
 @using System.Data
+@using E_Commerce_Website.Areas.SEC_User.Models
 @model DataTable
 
-<div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+@* <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
     <!--begin::Page-->
     <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
         <!--begin::Wrapper-->
@@ -147,7 +149,107 @@
             <!--end:::Main-->
         </div>
     </div>
+</div> *@
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h1>User List Page</h1>
+
+@{
+    if (@TempData["Message"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
+<br />
+<div class="table-header d-flex">
+    <div class="col-6 col-md-10">
+        <form class="search-form d-flex align-items-center" method="POST" asp-area="Product" asp-controller="Product" asp-action="ProductFilter">
+            <input class="form-control" type="search" asp-for="@sEC_UserFilterModel.UserName" name="UserName" placeholder="Search by User Name OR First Name OR Last Name">
+            <button class="btn" type="submit"><i class="fa fa-search" style="color:blue"></i></button>
+        </form>
+    </div>
+    <br />
+    <div class="add-button mr-auto">
+        <a asp-area="SEC_User" asp-controller="SEC_User" asp-action="Register">
+            <input type="button" class="btn btn-primary" value="Add New User" />
+        </a>
+    </div>
 </div>
+<br />
+<div class="col-lg-12 grid-margin stretch-card shadow-lg bg-white rounded">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col"><b>User Name</b></th>
+                            <th scope="col"><b>ProductName</b></th>
+                            <th scope="col"><b>ProductCode</b></th>
+                            <th scope="col"><b>ProductPrice</b></th>
+                            <th scope="col"><b>ProductImage</b></th>
+                            <th scope="col"><b>ProductRating</b></th>
+                            <th scope="col"><b>DiscountPercentage</b></th>
+                            <th scope="col"><b>Creation Date</b></th>
+                            <th scope="col"><b>Modification Date</b></th>
+                            <th scope="col"><b>Actions</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.Rows.Count > 0)
+                            {
+                                foreach (DataRow dr in Model.Rows)
+                                {
+
+                                    <tr class="text-center">
+                                        <td>@dr["UserName"]</td>
+                                        <td>@dr["FirstName"]</td>
+                                        <td>@dr["LastName"]</td>
+                                        <td>@dr["MobileNumber"]</td>
+                                        @*<td><img src="@Url.Content(dr["ProductImage"].ToString())" /></td>*@
+                                        <td>@dr["UserEmail"]</td>
+                                        <td>@dr["Password"]</td>
+                                        <td>@dr["IsAdmin"]</td>
+                                        <td>@dr["CreatedAt"]</td>
+                                        <td>@dr["ModifiedAt"]</td>
+                                        <td>
+                                            <form method="post" asp-area="SEC_User" asp-controller="SEC_User" asp-action="UserDelete">
+                                                <input type="hidden" name="UserID" value="@dr["UserID"]">
+                                                <button type="submit" class="btn btn-danger"
+                                                        onclick="return fun1()">
+                                                    Delete
+                                                </button>
+                                                <a class="btn btn-warning" asp-area="SEC_User" asp-controller="SEC_User"
+                                                   asp-action="ProductAdd" asp-route-ProductID="@dr["UserID"]">
+                                                    Update
+                                                </a>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td class="text-center" colspan="10">
+                                        <p class="col-form-label">No Record Found </p>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts
 {
     <script>

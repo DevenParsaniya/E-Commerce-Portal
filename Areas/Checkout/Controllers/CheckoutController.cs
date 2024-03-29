@@ -7,6 +7,9 @@ using System.Data;
 
 namespace E_Commerce_Website.Areas.Checkout.Controllers
 {
+    [CheckAccess]
+    [Area("Checkout")]
+    [Route("Checkout/[controller]/[action]")]
     public class CheckoutController : Controller
     {
         Checkout_DAL dalCheckout = new Checkout_DAL();

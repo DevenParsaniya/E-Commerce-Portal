@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Data;
 using E_Commerce_Website.Areas.Cart.Models;
+using System.Reflection;
 
 namespace E_Commerce_Website.DAL.Cart
 {
@@ -43,7 +44,7 @@ namespace E_Commerce_Website.DAL.Cart
                 {
                     dataTable.Load(dataReader);
                 }
-                if (dataTable.Rows.Count > 0)
+                if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     DbCommand dbCommand = sqlDatabase.GetStoredProcCommand("PR_Cart_Increment_Quantity");
                     sqlDatabase.AddInParameter(dbCommand, "@ProductID", DbType.Int32, ProductID);

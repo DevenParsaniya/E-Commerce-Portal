@@ -14,7 +14,7 @@ namespace E_Commerce_Website.Areas.Cart.Controllers
         Cart_DAL dalCart = new Cart_DAL();
 
         #region Cart List
-        public IActionResult CartList()
+        public IActionResult Cart_List()
         {
             DataTable dataTable = dalCart.CartSelectAll(Convert.ToInt32(CommonVariable.UserID()));
             return View(dataTable);

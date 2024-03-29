@@ -63,7 +63,7 @@ namespace E_Commerce_Website.DAL.Checkout
                 sqlDatabase.AddInParameter(dbCommand, "@State", DbType.String, addressModel.State);
                 sqlDatabase.AddInParameter(dbCommand, "@City", DbType.String, addressModel.City);
                 sqlDatabase.AddInParameter(dbCommand, "@Pincode", DbType.String, addressModel.Pincode);
-                sqlDatabase.AddInParameter(dbCommand, "@isDefault", DbType.Boolean, DBNull.Value);
+                sqlDatabase.AddInParameter(dbCommand, "@IsDefault", DbType.Boolean, DBNull.Value);
                 sqlDatabase.AddInParameter(dbCommand, "@Created", DbType.DateTime, DBNull.Value);
                 sqlDatabase.AddInParameter(dbCommand, "@Modified", DbType.DateTime, DBNull.Value);
                 bool isSuccess = Convert.ToBoolean(sqlDatabase.ExecuteNonQuery(dbCommand));
